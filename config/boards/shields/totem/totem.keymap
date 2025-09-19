@@ -23,12 +23,6 @@
 #define FUN   4
 #define MEDIA 5
 
-&mt {
-  quick-tap-ms = <100>;
-  global-quick-tap;
-  flavor = "tap-preferred";
-  tapping-term-ms = <170>;
-};
 
 / {
      combos {
@@ -45,7 +39,29 @@
             };
     };
 
-    macros {
+    behaviors {
+        hml: home_row_mod_left {
+            compatible = "zmk,behavior-hold-tap";
+            #binding-cells = <2>;
+            flavor = "balanced";
+            require-prior-idle-ms = <150>;
+            tapping-term-ms = <280>;
+            quick-tap-ms = <175>;
+            bindings = <&kp>, <&kp>;
+            hold-trigger-key-positions = < 10 11 12 13 >; // List of keys on the right side of the keyboard
+            hold-trigger-on-release;
+        };
+        hmr: home_row_mod_right {
+            compatible = "zmk,behavior-hold-tap";
+            #binding-cells = <2>;
+            flavor = "balanced";
+            require-prior-idle-ms = <150>;
+            tapping-term-ms = <280>;
+            quick-tap-ms = <175>;
+            bindings = <&kp>, <&kp>;
+            hold-trigger-key-positions = < 16 17 18 19 >; // List of keys on the left side of the keyboard
+            hold-trigger-on-release;
+        };
     };
 
         keymap {
@@ -69,7 +85,7 @@ label= "BASE"                              ;
 // ╷           ╷           ╷           ╷           ╷           ╷           ╷   ╷           ╷           ╷           ╷           ╷           ╷           ╷
 
                 &kp Z       &kp Y       &kp U       &kp O       &kp SEMI        &kp Q       &kp L       &kp D       &kp P       &kp X
-                &mt LGUI C  &mt LALT I  &mt LSHFT E &mt LCTRL A &kp COMMA       &kp K       &mt RCTRL H &mt RSHFT T &mt LALT N  &mt RGUI S
+                &hml LGUI C &hml LALT I &hml LSHFT E &hml LCTRL A &kp COMMA       &kp K       &hmr RCTRL H &hmr RSHFT T &hmr LALT N  &hmr RGUI S
     &kp W       &kp APOS    &kp MINUS   &kp EQUAL   &kp DOT     &kp FSLH        &kp J       &kp M       &kp G       &kp B       &kp V       &kp F
                                       &lt MEDIA ESC &lt NAV SPC &kp TAB         &lt SYM RET &lt NUM R   &lt FUN BSPC
              >;
